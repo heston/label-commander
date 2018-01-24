@@ -1,0 +1,33 @@
+%% Set up document for Dymo 30334 label
+\documentclass[11pt]{memoir}
+\setstocksize{41mm}{61mm}
+\settrimmedsize{32mm}{57mm}{*}
+\settrims{6mm}{2mm}
+\setlrmarginsandblock{4mm}{4mm}{*}
+\setulmarginsandblock{8mm}{10mm}{*}
+\setheadfoot{8mm}{8mm}
+\setheaderspaces{*}{*}{*}
+\checkandfixthelayout
+
+%% Format date
+\usepackage[nodayofweek]{datetime}
+\newdateformat{mydate}{\monthname[\THEMONTH]{ }\twodigit{\THEDAY}, \THEYEAR}
+
+%% Set up graphics
+\usepackage{graphicx}
+\graphicspath{ {<< image_path >>} }
+
+%% Set up header and footer
+\makepagestyle{label}
+\makeoddhead{label}{}{\mydate \today}{}
+\makeoddfoot{label}{}{\includegraphics[height=6mm]{fork-spoon}}{}
+\pagestyle{label}
+
+%% Set default font to ITC Avant Garde
+\renewcommand{\rmdefault}{pag}
+\sffamily
+
+%% Main document
+\begin{document}
+\begin{vplace}[0] \Large \centering \bfseries << body >> \end{vplace}
+\end{document}

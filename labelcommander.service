@@ -1,0 +1,11 @@
+[Unit]
+Description=Label Commander
+After=multi-user.target
+
+[Service]
+Type=idle
+WorkingDirectory={{DIR}}
+ExecStart=/usr/bin/make run
+
+[Install]
+WantedBy=multi-user.target

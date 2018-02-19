@@ -1,5 +1,5 @@
 blinker==1.4
--e git+git@github.com:heston/firebase-live-data.git@8e1b36ff2e589e6a222a7bf75b0ed89a8cc02805#egg=FirebaseData
+-e git+https://github.com/heston/firebase-live-data.git@419024660f9ec9727a98e2f3369c8a69faa623b9#egg=FirebaseData
 gcloud==0.17.0
 googleapis-common-protos==1.5.3
 httplib2==0.10.3

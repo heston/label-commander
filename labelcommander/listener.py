@@ -24,7 +24,7 @@ firebase_config = {
 
 firebase_app = pyrebase.initialize_app(firebase_config)
 
-live_data = LiveData(firebaseapp, settings.FIREBASE_PRINT_QUEUE_PATH)
+live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH)
 
 
 def handle_print_request(jobs):

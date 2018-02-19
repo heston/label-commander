@@ -10,12 +10,16 @@ PRINT_COMMAND = 'lp'
 PRINTER_NAME = 'DYMO_LabelWriter_330'
 
 
+class PrintError(RuntimeError):
+    """Error raised when trying to print."""
+
+
 def get_output_filename(output_log):
     cleaned_output = str(output_log).replace('\\n', '')
     output_file = output_pattern.search(cleaned_output)
     if not output_file:
         logger.debug(cleaned_output)
-        raise ValueError('No suitable output file found!')
+        raise PrintError('No suitable output file found!')
 
     return output_file.group(1)
 
@@ -33,7 +37,7 @@ def pdftex(input_path):
         completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         logger.debug(completed_process.stderr)
-        return
+        raise PrintError('pdftex failure')
 
     return get_output_filename(completed_process.stdout)
 
@@ -56,4 +60,4 @@ def print(filepath):
         completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         logger.debug(completed_process.stderr)
-        return
+        raise PrintError('cups failure')

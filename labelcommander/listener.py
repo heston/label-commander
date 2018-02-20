@@ -27,12 +27,12 @@ firebase_app = pyrebase.initialize_app(firebase_config)
 live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH)
 
 
-def handle_print_request(jobs):
+def handle_print_request(sender, value=None):
     # Print each job and remember any that failed
     remaining_jobs = {
         job_id: job
         for (job_id, job)
-        in jobs.items()
+        in value.items()
         if not print_label(job['text'])
     }
 

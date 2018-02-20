@@ -29,15 +29,21 @@ live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH)
 
 def handle_print_request(sender, value=None):
     # Print each job and remember any that failed
-    remaining_jobs = {
-        job_id: job
-        for (job_id, job)
-        in value.items()
-        if not print_label(job['text'])
-    }
+    if value is None:
+        return
 
-    # Reset the queue with any failed jobs, or an empty dict if all were successful
-    live_data.set_data('/', remaining_jobs)
+    try:
+        remaining_jobs = {
+            job_id: job
+            for (job_id, job)
+            in value.items()
+            if not print_label(job['text'])
+        }
+    except (AttributeError, KeyError) as e:
+        logger.warning('Invalid print request: %s', e)
+    else:
+        # Reset the queue with any failed jobs, or an empty dict if all were successful
+        live_data.set_data('/', remaining_jobs)
 
 
 def print_label(text):

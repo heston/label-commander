@@ -6,9 +6,10 @@ import subprocess
 logger = logging.getLogger(__name__)
 output_pattern = re.compile(r'Output written on ([^\s]+\.pdf) \(')
 PDFLATEX_COMMAND = 'pdflatex'
+PDFLATEX_TIMEOUT = 10
 PRINT_COMMAND = 'lp'
+PRINT_TIMEOUT = 5
 PRINTER_NAME = 'DYMO_LabelWriter_330'
-
 
 class PrintError(RuntimeError):
     """Error raised when trying to print."""
@@ -30,7 +31,8 @@ def pdftex(input_path):
     completed_process = subprocess.run(
         args,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
+        stderr=subprocess.PIPE,
+        timeout=PDFLATEX_TIMEOUT
     )
 
     try:
@@ -53,7 +55,8 @@ def print(filepath):
     completed_process = subprocess.run(
         args,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
+        stderr=subprocess.PIPE,
+        timeout=PRINT_TIMEOUT
     )
 
     try:

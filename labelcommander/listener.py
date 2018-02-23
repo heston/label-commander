@@ -51,9 +51,11 @@ def print_label(text):
         tex_path = render.generate(text)
         pdf_path = output.pdftex(tex_path)
         output.print(pdf_path)
-    except output.PrintError:
+    except output.PrintError as e:
+        logger.error('Could not print label: %s', e)
         return False
     else:
+        logger.debug('Printed label: %s', text)
         return True
 
 

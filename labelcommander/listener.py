@@ -3,8 +3,7 @@ import logging
 from firebasedata import LiveData
 import pyrebase
 
-from . import output
-from . import render
+from . import main
 from . import settings
 
 logger = logging.getLogger(__name__)
@@ -37,26 +36,14 @@ def handle_print_request(sender, value=None):
             job_id: job
             for (job_id, job)
             in value.items()
-            if not print_label(job['text'])
+            if not main.print_label(job['text'])
         }
     except (AttributeError, KeyError) as e:
         logger.warning('Invalid print request: %s', e)
     else:
-        # Reset the queue with any failed jobs, or an empty dict if all were successful
+        # Reset the queue with any failed jobs,
+        # or an empty dict if all were successful
         live_data.set_data('/', remaining_jobs)
-
-
-def print_label(text):
-    try:
-        tex_path = render.generate(text)
-        pdf_path = output.pdftex(tex_path)
-        output.print(pdf_path)
-    except output.PrintError as e:
-        logger.error('Could not print label: %s', e)
-        return False
-    else:
-        logger.debug('Printed label: %s', text)
-        return True
 
 
 live_data.signal('/').connect(handle_print_request)

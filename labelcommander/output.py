@@ -11,6 +11,7 @@ PRINT_COMMAND = 'lp'
 PRINT_TIMEOUT = 5
 PRINTER_NAME = 'DYMO_LabelWriter_330'
 
+
 class PrintError(RuntimeError):
     """Error raised when trying to print."""
 
@@ -28,18 +29,20 @@ def get_output_filename(output_log):
 def pdftex(input_path):
     output_dir = os.path.dirname(input_path)
     args = [PDFLATEX_COMMAND, '-output-directory', output_dir, input_path]
-    completed_process = subprocess.run(
-        args,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        timeout=PDFLATEX_TIMEOUT
-    )
 
     try:
+        completed_process = subprocess.run(
+            args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=PDFLATEX_TIMEOUT
+        )
         completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
-        logger.debug(completed_process.stderr)
+        logger.debug('%s: %s', e, completed_process.stderr)
         raise PrintError('pdftex failure')
+    except subprocess.TimeoutExpired as e:
+        raise PrintError(e)
 
     return get_output_filename(completed_process.stdout)
 
@@ -48,18 +51,16 @@ def print(filepath):
     args = [
         PRINT_COMMAND,
         '-d', PRINTER_NAME,
-        # '-o', 'landscape',
-        # '-o', 'page-ranges=1',
         filepath
     ]
-    completed_process = subprocess.run(
-        args,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        timeout=PRINT_TIMEOUT
-    )
 
     try:
+        completed_process = subprocess.run(
+            args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=PRINT_TIMEOUT
+        )
         completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         logger.debug(completed_process.stderr)

@@ -1,11 +1,11 @@
 %% Set up document for Dymo 30334 label
-\documentclass[11pt]{memoir}
-\setstocksize{41mm}{61mm}
-\settrimmedsize{32mm}{57mm}{*}
-\settrims{6mm}{2mm}
-\setlrmarginsandblock{4mm}{4mm}{*}
-\setulmarginsandblock{8mm}{10mm}{*}
-\setheadfoot{8mm}{8mm}
+\documentclass[10pt]{memoir}
+\setstocksize{84pt}{156pt}
+\settrimmedsize{84pt}{156pt}{*}
+% \settrims{17pt}{5pt}
+\setlrmarginsandblock{11pt}{11pt}{*}
+\setulmarginsandblock{22pt}{28pt}{*}
+\setheadfoot{22pt}{22pt}
 \setheaderspaces{*}{*}{*}
 \checkandfixthelayout
 
@@ -20,7 +20,7 @@
 %% Set up header and footer
 \makepagestyle{label}
 \makeoddhead{label}{}{\mydate \today}{}
-\makeoddfoot{label}{}{\includegraphics[height=6mm]{fork-spoon}}{}
+\makeoddfoot{label}{}{\includegraphics[height=16pt]{fork-spoon}}{}
 \pagestyle{label}
 
 %% Set default font to ITC Avant Garde

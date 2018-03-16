@@ -14,6 +14,9 @@ FIREBASE_API_KEY = os.getenv('LC_FIREBASE_API_KEY')
 # The path to the print queue collection
 FIREBASE_PRINT_QUEUE_PATH = 'print_jobs'
 
+# The name of the printer in CUPS
+CUPS_PRINTER_NAME = os.getenv('LC_CUPS_PRINTER_NAME')
+
 # Logging
 LOG_LEVEL = os.getenv('LC_LOGGING_LEVEL', 'DEBUG')
 

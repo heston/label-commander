@@ -3,13 +3,15 @@ import os.path
 import re
 import subprocess
 
+from . import settings
+
 logger = logging.getLogger(__name__)
 output_pattern = re.compile(r'Output written on ([^\s]+\.pdf) \(')
 PDFLATEX_COMMAND = 'pdflatex'
 PDFLATEX_TIMEOUT = 10
 PRINT_COMMAND = 'lp'
 PRINT_TIMEOUT = 5
-PRINTER_NAME = 'DYMO_LabelWriter_330'
+PRINTER_NAME = settings.CUPS_PRINTER_NAME
 
 
 class PrintError(RuntimeError):

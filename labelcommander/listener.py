@@ -1,3 +1,4 @@
+from datetime import timedelta
 import logging
 
 from firebasedata import LiveData
@@ -12,6 +13,7 @@ NAME = 'firebase'
 DATABASE_URL = 'https://{}.firebaseio.com'.format(settings.FIREBASE_APP_NAME)
 AUTH_DOMAIN = '{}.firebaseapp.com'.format(settings.FIREBASE_APP_NAME)
 STORAGE_BUCKET = '{}.appspot.com'.format(settings.FIREBASE_APP_NAME)
+TTL = timedelta(minutes=75)
 
 firebase_config = {
     'apiKey': settings.FIREBASE_API_KEY,
@@ -23,7 +25,7 @@ firebase_config = {
 
 firebase_app = pyrebase.initialize_app(firebase_config)
 
-live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH)
+live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH, TTL)
 
 
 def handle_print_request(sender, value=None):

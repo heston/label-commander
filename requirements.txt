@@ -1,5 +1,5 @@
 blinker==1.4
-FirebaseData==0.2
+FirebaseData==0.3
 gcloud==0.17.0
 googleapis-common-protos==1.5.3
 httplib2==0.10.3

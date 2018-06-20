@@ -16,6 +16,17 @@ IMAGE_PATH = os.path.join(
 
 DEFAULT_TEMPLATE_NAME = 'label.tex'
 
+# https://tex.stackexchange.com/a/34586
+SPECIAL_TEX_CHARS = {
+    '&': '\\&',
+    '%': '\\%',
+    '$': '\\$',
+    '#': '\\#',
+    '_': '\\_',
+    '{': '\\{',
+    '}': '\\}',
+}
+
 jinja_env = Environment(
     loader=FileSystemLoader(TEMPLATE_PATH),
     autoescape=select_autoescape(disabled_extensions=('tex',)),
@@ -30,12 +41,19 @@ def get_temp_file():
     return tempfile.mkstemp(suffix='.tex', text=True)
 
 
+def escape_for_tex(body):
+    for (search_char, replace_seq) in SPECIAL_TEX_CHARS.items():
+        body = body.replace(search_char, replace_seq)
+    return body
+
+
 def render(body, template=None):
+    escaped_body = escape_for_tex(body)
     template_name = template or DEFAULT_TEMPLATE_NAME
     template = jinja_env.get_template(template_name)
     return template.render(
         image_path='{}/'.format(IMAGE_PATH),
-        body=body
+        body=escaped_body
     )
 
 

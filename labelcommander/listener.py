@@ -1,4 +1,4 @@
-from cachetools import TTLCache
+from cachetools import LRUCache
 from datetime import timedelta
 import logging
 
@@ -16,7 +16,6 @@ AUTH_DOMAIN = '{}.firebaseapp.com'.format(settings.FIREBASE_APP_NAME)
 STORAGE_BUCKET = '{}.appspot.com'.format(settings.FIREBASE_APP_NAME)
 TTL = timedelta(minutes=75)
 CACHE_SIZE = 20  # items
-CACHE_TTL = 30  # seconds
 
 firebase_config = {
     'apiKey': settings.FIREBASE_API_KEY,
@@ -27,7 +26,7 @@ firebase_config = {
 }
 firebase_app = pyrebase.initialize_app(firebase_config)
 live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH, TTL)
-message_cache = TTLCache(CACHE_SIZE, CACHE_TTL)
+message_cache = LRUCache(CACHE_SIZE)
 
 
 def handle_print_request(sender, value=None):

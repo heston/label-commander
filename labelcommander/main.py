@@ -6,12 +6,12 @@ from . import render
 logger = logging.getLogger(__name__)
 
 
-def print_label(text):
+def print_label(text, qty=None):
     try:
         tex_path = render.generate(text)
         pdf_path = output.pdftex(tex_path)
         logger.debug('Printing PDF file: %s', pdf_path)
-        output.print(pdf_path)
+        output.print(pdf_path, qty)
     except output.PrintError as e:
         logger.error('Could not print label: %s', e)
         return False

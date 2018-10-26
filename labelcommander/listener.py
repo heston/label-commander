@@ -44,7 +44,7 @@ def handle_print_request(sender, value=None):
                 logger.info('Skipping duplicate print request: %s', job_id)
                 continue
 
-            success = main.print_label(job['text'])
+            success = main.print_label(job['text'], job.get('qty'))
             if success:
                 # printing succeeded
                 message_cache[job_id] = True

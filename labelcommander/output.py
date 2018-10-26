@@ -49,12 +49,13 @@ def pdftex(input_path):
     return get_output_filename(completed_process.stdout)
 
 
-def print(filepath):
+def print(filepath, qty=None):
     args = [
         PRINT_COMMAND,
         '-d', PRINTER_NAME,
         # Only print the first page
         '-o', 'page-ranges=1',
+        '-n', qty or 1,
         filepath
     ]
 

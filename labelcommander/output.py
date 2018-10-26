@@ -55,18 +55,21 @@ def print(filepath, qty=None):
         '-d', PRINTER_NAME,
         # Only print the first page
         '-o', 'page-ranges=1',
-        '-n', str(qty or 1),
         filepath
     ]
+    logger.debug('Print command: %s', ' '.join(args))
+
+    qty = qty or 1
 
     try:
-        completed_process = subprocess.run(
-            args,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=PRINT_TIMEOUT
-        )
-        completed_process.check_returncode()
+        for i in range(qty):
+            completed_process = subprocess.run(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=PRINT_TIMEOUT
+            )
+            completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         logger.debug(completed_process.stderr)
         raise PrintError('cups failure')

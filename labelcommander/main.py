@@ -1,5 +1,6 @@
 import logging
 
+from . import formatter
 from . import output
 from . import render
 
@@ -8,7 +9,9 @@ logger = logging.getLogger(__name__)
 
 def print_label(text, qty=None):
     try:
-        tex_path = render.generate(text)
+        filtered_text = formatter.process(text)
+        logger.debug('Printing label: %s', filtered_text)
+        tex_path = render.generate(filtered_text)
         pdf_path = output.pdftex(tex_path)
         logger.debug('Printing PDF file: %s', pdf_path)
         output.print(pdf_path, qty)
@@ -16,5 +19,5 @@ def print_label(text, qty=None):
         logger.error('Could not print label: %s', e)
         return False
     else:
-        logger.debug('Printed label: %s', text)
+        logger.debug('Printed label: %s', filtered_text)
         return True

@@ -2,7 +2,7 @@ blinker==1.4
 cachetools==2.0.1
 certifi==2018.1.18
 chardet==3.0.4
-FirebaseData==0.4
+FirebaseData==0.5.2
 google-api-core==1.1.0
 google-auth==1.4.1
 google-cloud-core==0.28.1

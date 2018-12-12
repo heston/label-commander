@@ -16,8 +16,13 @@ def amp(text):
     return text.replace(' and ', ' & ')
 
 
+def apos(text):
+    return text.replace(" ' s" "'s")
+
+
 filters = [
     lower_case,
     amp,
+    apos,
     titlecase,
 ]

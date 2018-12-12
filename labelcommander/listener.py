@@ -30,7 +30,7 @@ live_data = LiveData(firebase_app, settings.FIREBASE_PRINT_QUEUE_PATH, TTL)
 message_cache = TTLCache(CACHE_SIZE, CACHE_TTL)
 
 
-def handle_print_request(sender, value=None):
+def handle_print_request(sender, value=None, path=None):
     # Print each job and remember any that failed
     if value is None:
         return

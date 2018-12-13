@@ -17,7 +17,7 @@ def amp(text):
 
 
 def apos(text):
-    return text.replace(" ' s" "'s")
+    return text.replace(" ' s", "'s")
 
 
 filters = [

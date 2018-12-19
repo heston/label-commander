@@ -8,17 +8,13 @@
 \setheaderspaces{*}{*}{*}
 \checkandfixthelayout
 
-%% Format date
-\usepackage[nodayofweek]{datetime}
-\newdateformat{mydate}{\monthname[\THEMONTH]{ }\twodigit{\THEDAY}, \THEYEAR}
-
 %% Set up graphics
 \usepackage{graphicx}
 \graphicspath{ {<< image_path >>} }
 
 %% Set up header and footer
 \makepagestyle{label}
-\makeoddhead{label}{}{\mydate \today}{}
+\makeoddhead{label}{}{<< date >>}{}
 \makeoddfoot{label}{}{\includegraphics[height=16pt]{fork-spoon}}{}
 \pagestyle{label}
 

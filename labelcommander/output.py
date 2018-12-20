@@ -54,7 +54,7 @@ def print(filepath, qty=None):
     args = [
         PRINT_COMMAND,
         '-d', PRINTER_NAME,
-        '-n', qty,
+        '-n', str(qty),
         # Only print the first page
         '-o', 'page-ranges=1',
         filepath

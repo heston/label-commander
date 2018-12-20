@@ -48,7 +48,7 @@ def format_date(ts=None):
     else:
         try:
             dt = datetime.fromtimestamp(ts)
-        except ValueError:
+        except (ValueError, OverflowError):
             # Assume ts was microseconds. Convert to seconds.
             dt = datetime.fromtimestamp(ts/1000)
 

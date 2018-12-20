@@ -50,26 +50,25 @@ def pdftex(input_path):
 
 
 def print(filepath, qty=None):
+    qty = qty or 1
     args = [
         PRINT_COMMAND,
         '-d', PRINTER_NAME,
+        '-n', qty,
         # Only print the first page
         '-o', 'page-ranges=1',
         filepath
     ]
     logger.debug('Print command: %s', ' '.join(args))
 
-    qty = qty or 1
-
     try:
-        for i in range(qty):
-            completed_process = subprocess.run(
-                args,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                timeout=PRINT_TIMEOUT
-            )
-            completed_process.check_returncode()
+        completed_process = subprocess.run(
+            args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=PRINT_TIMEOUT
+        )
+        completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         logger.debug(completed_process.stderr)
         raise PrintError('cups failure')

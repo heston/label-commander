@@ -12,7 +12,7 @@ googleapis-common-protos==1.5.3
 idna==2.6
 Jinja2==2.11.3
 MarkupSafe==1.0
-protobuf==3.5.2.post1
+protobuf==3.15.0
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
 -e git+https://github.com/heston/Pyrebase.git@a77bd6f6def656b1dcd77d938fac2707f3c4ba61#egg=Pyrebase

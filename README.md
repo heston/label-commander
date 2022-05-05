@@ -32,7 +32,14 @@ is pretty helpful.
 ### LaTeX
 
 Ensure `texlive` is installed on your system. If on a Raspberry Pi, it may be already installed.
-Run `pdflatex` to find out.
+Run `pdflatex` on the command line to find out. If not, it's fairly easy to install.
+
+On the command line run:
+
+```
+sudo apt update
+sudo apt install texlive
+```
 
 ### Firebase
 
@@ -53,20 +60,25 @@ Run `pdflatex` to find out.
 1. Copy `env.example.sh` to `env.sh`. e.g. `cp env.example.sh env.sh`.
 1. Open `env.sh` and edit several values:
     1. Set `LC_FIREBASE_APP_NAME` to the value of `projectId`.
-    1. Set `LC_FIREBASE_KEY_PATH` to the absolute path of the location where you copied the private key.
+    1. Set `LC_FIREBASE_KEY_PATH` to the absolute path of the location where you copied the private key file.
     1. Set `LC_FIREBASE_API_KEY` to the value of `apiKey`.
     1. Set `LC_FIREBASE_DATABASE_URL` to the value of `databaseURL`.
-    1. Set `LC_CUPS_PRINTER_NAME` to the name of the CUPS printer queue of your LabelWriter.
-    1. Save and close the file.
+    1. Set `LC_CUPS_PRINTER_NAME` to the name of the CUPS printer queue of your LabelWriter. This value will get turned into the command:
+       ```
+       lp -d LC_CUPS_PRINTER_NAME filename
+       ```
+       Ensure you can print to your Dymo this way from the command-line before proceeding.
+    3. Save and close the file.
 1. `make setup` to get your virtual environment bootstrapped.
 1. `make run` to start the client.
 1. If all is well, you should have a running client connected to your Firebase Realtime Database.
-1. To setup the client to run automatically on boot: `sudo make install`.
+1. To have the client run automatically on boot: `sudo make install`.
+1. To undo the previous step: `sudo make uninstall`.
 
 ### Cloud Functions
 
 Now, head over to [Label Commander Server](https://github.com/heston/label-commander-server)
-and follow the instructions there to get the cloud functions running, and configure an IFTTT
+and follow the instructions there to get the cloud functions running and configure an IFTTT
 applet to interface with them.
 
 ## Customizing

@@ -15,11 +15,17 @@ queue. However, I've only tested it on a Raspberry Pi.
 There is also [a server (of sorts)](https://github.com/heston/label-commander-server),
 in the form of Firebase Cloud Functions.
 
-Finally, an [IFTTT applet](https://ifttt.com/google_assistant) listens for 
+Finally, an [IFTTT applet](https://ifttt.com/google_assistant) listens for
 commands from Google Assistant and dispatches requests to the Cloud Function endpoint
 (via a Webhook action).
 
 ## Installation
+
+### Python
+
+This project is only compatible with Python 3. It will work with Python 3.7+ at least,
+and may work with older versions of Python 3, but these haven't been tested. It is not
+compatible with Python 2.
 
 ### CUPS & Dymo
 

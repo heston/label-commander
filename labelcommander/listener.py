@@ -11,7 +11,6 @@ from . import settings
 logger = logging.getLogger(__name__)
 
 NAME = 'firebase'
-DATABASE_URL = 'https://{}.firebaseio.com'.format(settings.FIREBASE_APP_NAME)
 AUTH_DOMAIN = '{}.firebaseapp.com'.format(settings.FIREBASE_APP_NAME)
 STORAGE_BUCKET = '{}.appspot.com'.format(settings.FIREBASE_APP_NAME)
 TTL = timedelta(minutes=75)
@@ -21,7 +20,7 @@ CACHE_TTL = 30  # seconds
 firebase_config = {
     'apiKey': settings.FIREBASE_API_KEY,
     'authDomain': AUTH_DOMAIN,
-    'databaseURL': DATABASE_URL,
+    'databaseURL': settings.FIREBASE_DATABASE_URL,
     'storageBucket': STORAGE_BUCKET,
     'serviceAccount': settings.FIREBASE_KEY_PATH,
 }

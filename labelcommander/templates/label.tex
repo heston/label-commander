@@ -3,9 +3,9 @@
 \setstocksize{84pt}{156pt}
 \settrimmedsize{84pt}{156pt}{*}
 \setlrmarginsandblock{11pt}{11pt}{*}
-\setulmarginsandblock{22pt}{28pt}{*}
-\setheadfoot{22pt}{22pt}
-\setheaderspaces{*}{*}{*}
+\setulmarginsandblock{23pt}{29pt}{*}
+\setheadfoot{12pt}{15pt}
+\setheaderspaces{6pt}{*}{*}
 \checkandfixthelayout
 
 %% Set up graphics
@@ -15,14 +15,25 @@
 %% Set up header and footer
 \makepagestyle{label}
 \makeoddhead{label}{}{<< date >>}{}
-\makeoddfoot{label}{}{\includegraphics[height=16pt]{fork-spoon}}{}
+\makeoddfoot{label}{}{\raisebox{-8pt}{\includegraphics[height=16pt]{fork-spoon}}}{}
 \pagestyle{label}
 
 %% Set default font to ITC Avant Garde
 \renewcommand{\rmdefault}{pag}
 \sffamily
 
+%% Add adjustbox for scaling
+\usepackage{adjustbox}
+
 %% Main document
 \begin{document}
-\begin{vplace}[0] \Large \centering \bfseries << body >> \end{vplace}
+\noindent%
+\begin{minipage}[c][\textheight][c]{\textwidth}
+  \centering
+  \begin{adjustbox}{max width=\textwidth, max totalheight=\textheight, keepaspectratio}
+    \begin{minipage}{\textwidth}
+      \centering\Large\bfseries << body >>
+    \end{minipage}
+  \end{adjustbox}
+\end{minipage}
 \end{document}

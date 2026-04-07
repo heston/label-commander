@@ -7,11 +7,11 @@ from . import render
 logger = logging.getLogger(__name__)
 
 
-def print_label(text, qty=None, date=None):
+def print_label(text, qty=None, date=None, template=None):
     try:
         filtered_text = formatter.process(text)
         logger.debug('Printing label: %s', filtered_text)
-        tex_path = render.generate(filtered_text, date=date)
+        tex_path = render.generate(filtered_text, date=date, template=template)
         pdf_path = output.pdftex(tex_path)
         logger.debug('Printing PDF file: %s', pdf_path)
         output.print(pdf_path, qty)

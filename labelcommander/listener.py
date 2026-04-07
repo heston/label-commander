@@ -45,8 +45,9 @@ def handle_print_request(sender, value=None, path=None):
 
             success = main.print_label(
                 job['text'],
-                job.get('qty'),
-                job.get('occurredAt')
+                qty=job.get('qty'),
+                date=job.get('occurredAt'),
+                template=job.get('template')
             )
             if success:
                 # printing succeeded

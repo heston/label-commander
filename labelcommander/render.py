@@ -15,7 +15,12 @@ IMAGE_PATH = os.path.join(
     'images'
 )
 
-DEFAULT_TEMPLATE_NAME = 'label.tex'
+TEMPLATES = {
+    'default': 'label.tex',
+    'simple': 'simple_label.tex',
+}
+
+DEFAULT_TEMPLATE = 'default'
 
 # https://tex.stackexchange.com/a/34586
 SPECIAL_TEX_CHARS = {
@@ -61,10 +66,17 @@ def escape_for_tex(body):
     return body
 
 
+def get_template(name):
+    if name is None:
+        return TEMPLATES[DEFAULT_TEMPLATE]
+
+    return TEMPLATES.get(name, TEMPLATES[DEFAULT_TEMPLATE])
+
+
 def render(body, **kwargs):
     escaped_body = escape_for_tex(body)
     date = format_date(kwargs.get('date'))
-    template_name = kwargs.get('template') or DEFAULT_TEMPLATE_NAME
+    template_name = get_template(kwargs.get('template'))
     template = jinja_env.get_template(template_name)
     return template.render(
         image_path='{}/'.format(IMAGE_PATH),

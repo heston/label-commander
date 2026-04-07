@@ -1,0 +1,34 @@
+%% Set up document for Dymo 30334 label
+\documentclass[10pt]{memoir}
+\setstocksize{84pt}{156pt}
+\settrimmedsize{84pt}{156pt}{*}
+%% Equal 11pt margins on all four sides
+\setlrmarginsandblock{11pt}{11pt}{*}
+\setulmarginsandblock{11pt}{11pt}{*}
+%% Shrink header/footer variables so they don't take up space
+\setheadfoot{1pt}{1pt}
+\setheaderspaces{1pt}{*}{*}
+\checkandfixthelayout
+
+%% Completely disable headers, footers, and page numbers
+\pagestyle{empty}
+
+%% Set default font to ITC Avant Garde
+\renewcommand{\rmdefault}{pag}
+\sffamily
+
+%% Add adjustbox for scaling
+\usepackage{adjustbox}
+
+%% Main document
+\begin{document}
+\noindent%
+\begin{minipage}[c][\dimexpr\textheight-1pt\relax][c]{\textwidth}
+  \centering
+  \begin{adjustbox}{max width=\textwidth, max totalheight=\textheight, keepaspectratio}
+    \begin{minipage}{\textwidth}
+      \centering\Large\bfseries << body >>
+    \end{minipage}
+  \end{adjustbox}
+\end{minipage}%
+\end{document}
